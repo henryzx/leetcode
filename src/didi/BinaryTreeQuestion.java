@@ -3,6 +3,11 @@ package didi;
 import java.util.LinkedList;
 
 /**
+ * binary search tree
+ *   5
+ *  3 7
+ * 2 4 6
+ *
  * Created by zx on 2017/3/22.
  */
 public class BinaryTreeQuestion {
