@@ -5,7 +5,7 @@ import java.util.LinkedList;
 /**
  * Created by zx on 2017/3/22.
  */
-public class BinaryTreeQuestion {
+public class BinaryTreeQuestions {
 
     public static void main(String[] args) {
         Node node = makeOrderTree();

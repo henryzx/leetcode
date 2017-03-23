@@ -64,14 +64,5 @@ public class DivideArray {
         int[] input = {2, 2, 2, 2, 1, 1, 1};
         new DivideArray().divide(input);
         System.out.println(Arrays.toString(input));
-
-    }
-
-    class A{
-
-    }
-
-    public static void s(){
-
     }
 }
