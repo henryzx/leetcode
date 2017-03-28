@@ -4,10 +4,10 @@ import java.util.LinkedList;
 
 /**
  * binary search tree
- *   5
- *  3 7
+ * 5
+ * 3 7
  * 2 4 6
- *
+ * <p>
  * Created by zx on 2017/3/22.
  */
 public class BinaryTreeQuestions {
@@ -19,6 +19,11 @@ public class BinaryTreeQuestions {
         if (false) {
             System.out.println("depth " + depth(node));
         }
+
+        if (true) {
+            System.out.println("depth " + depthIterVer(node));
+        }
+
         //dfs(node);
 
         if (false) {
@@ -39,7 +44,7 @@ public class BinaryTreeQuestions {
             bfs(node);
         }
 
-        if (true) {
+        if (false) {
             System.out.println(findCommonParent(node, 6, 4).value);
         }
     }
@@ -205,4 +210,34 @@ public class BinaryTreeQuestions {
         return root != null && (root.value == target || findNode(root.left, target) || findNode(root.right, target));
     }
 
+    public static class DNode{
+        Node node;
+        int depth;
+
+        public DNode(Node node, int depth) {
+            this.node = node;
+            this.depth = depth;
+        }
+    }
+
+    /**
+     * 使用标注法
+     * @param root
+     * @return
+     */
+    static int depthIterVer(Node root) {
+        int maxStackLength = 0;
+
+        LinkedList<DNode> list = new LinkedList<>();
+        list.addLast(new DNode(root, 1));
+        while (!list.isEmpty()) {
+            DNode dnode = list.removeFirst();
+            maxStackLength = dnode.depth;
+            Node node = dnode.node;
+            if (node.left != null) list.addLast(new DNode(node.left, dnode.depth + 1));
+            if (node.right != null) list.addLast(new DNode(node.right,dnode.depth + 1));
+        }
+
+        return maxStackLength;
+    }
 }
