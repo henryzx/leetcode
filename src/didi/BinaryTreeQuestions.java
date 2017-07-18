@@ -275,30 +275,30 @@ public class BinaryTreeQuestions {
         if (root == null) {
             return 0;
         }
-
-        int visitedCount = 0;
-        int queuedCount = 1;
-        int lastLevelCount = 1;
         int height = 0;
 
-        Queue<Node> q = new LinkedList<Node>();
+        Queue<Node> q = new LinkedList<>();
         q.offer(root);
+
+        // current level is 1 (just pushed the root node)
+        int levelCount = 1;
+
         while (!q.isEmpty()) {
             Node n = q.poll();
-            visitedCount++;
+            levelCount--; // visited one node
+
 
             if (n.left != null) {
                 q.offer(n.left);
-                queuedCount++;
             }
             if (n.right != null) {
                 q.offer(n.right);
-                queuedCount++;
             }
 
-            if (visitedCount == lastLevelCount) {
+            // visited the end of a level. reset level counter
+            if (levelCount == 0) {
                 height++;
-                lastLevelCount = queuedCount;
+                levelCount = q.size();
             }
         }
 
