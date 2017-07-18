@@ -1,6 +1,7 @@
 package didi;
 
 import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * binary search tree
@@ -16,13 +17,19 @@ public class BinaryTreeQuestions {
         Node node = makeOrderTree();
         bfs(node);
 
-        if (false) {
+        if (true) {
+            System.out.println("depth " + depthIterVer2(node));
+        }
+
+        if (true) {
             System.out.println("depth " + depth(node));
         }
 
         if (true) {
             System.out.println("depth " + depthIterVer(node));
         }
+
+
 
         //dfs(node);
 
@@ -86,9 +93,10 @@ public class BinaryTreeQuestions {
                                 new Node(8)));
     }
 
-
     static void dfs(Node node) {
-        if (node == null) return;
+        if (node == null) {
+            return;
+        }
 
         System.out.println(node.value);
 
@@ -173,15 +181,21 @@ public class BinaryTreeQuestions {
     }
 
     static int getCountOfLevel(Node root, int level) {
-        if (root == null || level <= 0) return 0;
-        if (level == 1) return 1;
+        if (root == null || level <= 0) {
+            return 0;
+        }
+        if (level == 1) {
+            return 1;
+        }
         int leftCount = getCountOfLevel(root.left, level - 1);
         int rightCount = getCountOfLevel(root.right, level - 1);
         return leftCount + rightCount;
     }
 
     static void mirror(Node root) {
-        if (root == null) return;
+        if (root == null) {
+            return;
+        }
 
         mirror(root.left);
         mirror(root.right);
@@ -210,7 +224,7 @@ public class BinaryTreeQuestions {
         return root != null && (root.value == target || findNode(root.left, target) || findNode(root.right, target));
     }
 
-    public static class DNode{
+    public static class DNode {
         Node node;
         int depth;
 
@@ -222,7 +236,9 @@ public class BinaryTreeQuestions {
 
     /**
      * 使用标注法
+     *
      * @param root
+     *
      * @return
      */
     static int depthIterVer(Node root) {
@@ -234,10 +250,58 @@ public class BinaryTreeQuestions {
             DNode dnode = list.removeFirst();
             maxStackLength = dnode.depth;
             Node node = dnode.node;
-            if (node.left != null) list.addLast(new DNode(node.left, dnode.depth + 1));
-            if (node.right != null) list.addLast(new DNode(node.right,dnode.depth + 1));
+            if (node.left != null) {
+                list.addLast(new DNode(node.left, dnode.depth + 1));
+            }
+            if (node.right != null) {
+                list.addLast(new DNode(node.right, dnode.depth + 1));
+            }
         }
 
         return maxStackLength;
+    }
+
+    /**
+     * 非递归实现
+     *
+     * 借用一个思考：在bfs时，当遍历到某一层后，队列中的长度即是下一层的所有节点。
+     *
+     * 可以以此切分层级
+     *
+     * @param root
+     * @return
+     */
+    static int depthIterVer2(Node root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int visitedCount = 0;
+        int queuedCount = 1;
+        int lastLevelCount = 1;
+        int height = 0;
+
+        Queue<Node> q = new LinkedList<Node>();
+        q.offer(root);
+        while (!q.isEmpty()) {
+            Node n = q.poll();
+            visitedCount++;
+
+            if (n.left != null) {
+                q.offer(n.left);
+                queuedCount++;
+            }
+            if (n.right != null) {
+                q.offer(n.right);
+                queuedCount++;
+            }
+
+            if (visitedCount == lastLevelCount) {
+                height++;
+                lastLevelCount = queuedCount;
+            }
+        }
+
+        return height;
     }
 }
