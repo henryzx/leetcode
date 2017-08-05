@@ -54,6 +54,10 @@ public class MergeTwoBinaryTrees {
 
         public TreeNode mergeTrees(TreeNode t1, TreeNode t2) {
 
+            if (t1 == null) {
+                return t2;
+            }
+
             Stack<TreeNode[]> stack = new Stack<>();
             stack.push(new TreeNode[]{t1, t2});
 
