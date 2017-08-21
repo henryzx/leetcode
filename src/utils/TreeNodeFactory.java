@@ -6,9 +6,9 @@ import java.util.Queue;
 /**
  * Created by zx on 2017/8/5.
  */
-public class BinaryTreeFactory {
+public class TreeNodeFactory {
 
-    public TreeNode createBinaryTree(Integer[] array){
+    public static TreeNode createBinaryTree(Integer... array){
         if (array.length == 0 || array[0] == null) return null;
 
         TreeNode root = new TreeNode(array[0]);
@@ -53,7 +53,7 @@ public class BinaryTreeFactory {
     }
 
     public static void main(String[] args) {
-        TreeNode node = new BinaryTreeFactory().createBinaryTree(new Integer[]{1,null,null,null,null,6,7,8});
+        TreeNode node = createBinaryTree(1,null,null,null,null,6,7,8);
         visit(node);
     }
 
